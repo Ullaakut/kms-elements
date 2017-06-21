@@ -30,6 +30,8 @@
 #include <gst/app/gstappsink.h>
 #include <gst/app/gstappsrc.h>
 
+#include <stdlib.h>
+
 #define PLUGIN_NAME "playerendpoint"
 #define AUDIO_APPSRC "audio_appsrc"
 #define VIDEO_APPSRC "video_appsrc"
@@ -1214,6 +1216,12 @@ static void kms_player_endpoint_init(KmsPlayerEndpoint *self) {
   self->priv->rtspsrc =
           gst_element_factory_make("rtspsrc", RTSPSRC);
   self->priv->network_cache = NETWORK_CACHE_DEFAULT;
+
+  char *port_range;
+  if ((port_range = getenv("PORT_RANGE_DEFAULT")) != NULL)
+    self->priv->port_range = port_range;
+  else
+    self->priv->port_range = PORT_RANGE_DEFAULT;
 
   self->priv->stats.probes = kms_list_new_full(
       g_direct_equal, g_object_unref, (GDestroyNotify)kms_stats_probe_destroy);
