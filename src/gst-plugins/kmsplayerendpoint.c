@@ -1223,6 +1223,11 @@ static void kms_player_endpoint_init(KmsPlayerEndpoint *self) {
   else
     self->priv->port_range = PORT_RANGE_DEFAULT;
 
+
+  /* Set location property in rtspsrc */
+  g_object_set (G_OBJECT (self->priv->rtspsrc), "location",
+          KMS_URI_ENDPOINT (self)->uri, NULL);
+
   self->priv->stats.probes = kms_list_new_full(
       g_direct_equal, g_object_unref, (GDestroyNotify)kms_stats_probe_destroy);
 

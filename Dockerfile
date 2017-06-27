@@ -67,7 +67,7 @@ COPY . /kurento/kms-elements
 
 # Build modified kms-elements
 RUN cd kms-elements && \
-       mkdir build && \
+       mkdir -p build && \
        cd build && \
        cmake .. && \
        make && \
@@ -81,7 +81,7 @@ RUN cd kurento-media-server && \
 	   wget -O - http://ubuntu.kurento.org/kurento.gpg.key | apt-key add - && \
        apt-get update && \
        apt-get install -y $(cat debian/control | sed -e "s/$/\!\!/g" | tr -d '\n' | sed "s/\!\! / /g" | sed "s/\!\!/\n/g" | grep "Build-Depends" | sed "s/Build-Depends: //g" | sed "s/([^)]*)//g" | sed "s/, */ /g") && \
-       mkdir build && \
+       mkdir -p build && \
        cd build && \
        cmake .. && \
        make && \

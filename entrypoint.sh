@@ -14,10 +14,6 @@ if [ -n "$OUTPUT_BITRATE" ]; then
     echo "outputBitrate=$OUTPUT_BITRATE" > /etc/kurento/modules/kurento/MediaElement.conf.ini
 fi
 
-if [ -n "$RTSP_PORT_RANGE" ]; then
-  echo "portRange=$RTSP_PORT_RANGE" > /etc/kurento/modules/kurento/PlayerEndpoint.conf.ini
-fi
-
 if [ -n "$KMS_STUN_IP" -a -n "$KMS_STUN_PORT" ]; then
   # Generate WebRtcEndpoint configuration
   echo "stunServerAddress=$KMS_STUN_IP" > /etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
